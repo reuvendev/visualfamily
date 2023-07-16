@@ -5,6 +5,39 @@
 * License: https://bootstrapmade.com/license/
 */
 
+// Get all elements with class "purecounter"
+const counters = document.querySelectorAll('.purecounter');
+
+// Loop through each counter
+counters.forEach(counter => {
+  const start = parseInt(counter.getAttribute('data-purecounter-start')); // Get the starting value
+  const end = parseInt(counter.getAttribute('data-purecounter-end')); // Get the ending value
+  const duration = parseInt(counter.getAttribute('data-purecounter-duration')) * 1000; // Get the duration in milliseconds
+
+  let current = start; // Initialize the current value
+
+  // Create a function to update the counter
+  const updateCounter = () => {
+    // Increment the counter by a fraction of the difference between start and end
+    const increment = (end - start) / duration * 10;
+    current += increment;
+
+    // Check if the counter reached the end value
+    if (current >= end) {
+      current = end; // Set the counter to the end value
+      counter.textContent = current.toLocaleString(); // Update the counter text content with the localized number
+    } else {
+      counter.textContent = current.toLocaleString(); // Update the counter text content with the current localized number
+      setTimeout(updateCounter, 10); // Call the function again after a delay
+    }
+  };
+
+  // Start the counter animation
+  updateCounter();
+});
+
+
+
 (function() {
   "use strict";
 
